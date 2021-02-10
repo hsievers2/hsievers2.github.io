@@ -10,7 +10,7 @@
 	<title>Quick Start - Leaflet</title>
 
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="HannahSievers" content="width=device-width, initial-scale=1.0">
 	
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 
@@ -27,7 +27,7 @@
 
 
 <!-- (5) a "div" is like a window; you're basically telling the browser to make a container here, size 600 by 400 -->
-<div id="mapid" style="width: 800px; height: 600px;"></div>
+<div id="mapid" style="width: 900px; height: 700px;"></div>
 
 <script>
 //(6) when you are outside of the head and outside of functions, you can use just two slashes to leave single-line comments like this and you don't need to close
@@ -39,9 +39,9 @@
 	
 	
 	var mymap = L.map('mapid').setView([40.819273, -96.702968], 16);
-	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		maxZoom: 30,
-		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors '
+	L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+		maxZoom: 20,
+		attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 	}).addTo(mymap);
 //(10) right above here, you see you're adding this tileset and setting the max zoom level of "mymap" 
 
@@ -50,18 +50,19 @@
 	L.marker([40.819273, -96.702968]).addTo(mymap)
 		.bindPopup("<b>Hello world!</b><br />I open automatically.").openPopup();
 
-	L.circle([40.817, -96.71], 200, {
+	L.circle([40.8207, -96.7056], 200, {
 		color: 'green',
 		fillColor: '#f03',
 		fillOpacity: 0.5
-	}).addTo(mymap).bindPopup("I am a circle.");
+	}).addTo(mymap).bindPopup("this is Memorial Stadium!.");
 	//(13)notice that you can set the color of the outline by using major color names, as well as the fill color with hex codes
 
 
 	L.polygon([
 		[40.819803, -96.703767],
 		[40.819787, -96.703247],
-		[40.819588, -96.703754]
+		[40.819588, -96.703754],
+		[40.819456, -96.703678]
 	]).addTo(mymap).bindPopup("I am a polygon.");
 	//(14)three nodes - the above code is drawing is a triangle... you can add more nodes to the polygon by separating each with a comma
 
@@ -72,9 +73,9 @@
 		var LoveLibrary = {
     "type": "Feature",
     "properties": {
-        "name": "Love Library",
-        "amenity": "Library",
-        "popupContent": "This is a library!"
+        name: "Love Library",
+        amenity: "Library",
+        popupContent: "This is a library!"
     },
     "geometry": {
         "type": "Point",
