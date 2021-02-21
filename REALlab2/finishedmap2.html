@@ -103,7 +103,7 @@ var legend = L.control({position: 'bottomleft'});
 legend.onAdd = function (map) {
 
 var div = L.DomUtil.create('div', 'legend'),
-  grades = [0, 1000000, 2000000, 5000000, 10000000];
+  grades = [0, 10000, 20000, 50000, 100000];
   div.innerHTML = '<b>Population 2019 <br><br></b>';
   for (var i = 0; i < grades.length; i++) {
   div.innerHTML +=
