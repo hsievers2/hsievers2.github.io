@@ -1,0 +1,99 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css"
+type="text/css">
+<style>
+</style>
+</head>
+
+<body>
+  <div id="map" style="width: 800px; height: 600px;"></div>
+  <div class="ol-viewport" data-view="7" style="position: relative; overflow: hidden; width: 100%; height 100%; touch-action: none;">
+    <canvas class="ol-unselectable" width="800" height="600" style="width:100%; height: 100%; display:block;>"
+    <div class="ol-overlaycontainer"></div>
+
+      <div class="ol-overlaycontainer-stopvent"></div>
+
+<div  id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer">
+    </a>
+    <div id= "popup-content"></div>
+    <b>Hello world!</b>
+    <br>
+    "I am UNL City Campus."
+  </div>
+</div>
+<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+<script>
+
+var attribution = new ol.control.Attribution({
+     collapsible: false
+});
+var map = new ol.Map({
+     controls: ol.control.defaults({attribution: false}).extend([attribution]),
+     layers: [
+     new ol.layer.Tile({
+       source: new ol.source.OSM({
+         url:
+         'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+         attributions: [ ol.source.OSM.ATTRIBUTION, 'Sievers' ],
+         maxZoom: 20
+     })
+  })
+],
+target: 'map',
+view: new ol.View({
+  center: ol.proj.fromLonLat([-96.6607, 40.8073]),
+  maxZoom: 18,
+  zoom: 12
+})
+});
+
+var layer = new ol.layer.Vector({
+  source: new ol.source.Vector({
+    features:[
+      new ol.Feature({
+        geometry: new
+        ol.geom.Point(ol.proj.fromLonLat([-96.7005, 40.8202]))
+      })
+    ]
+  })
+})
+map.addLayer(layer);
+
+
+var container = document.getElementById('popup');
+var content = document.getElementById('popup-content');
+var closer = document.getElementById('popup-closer');
+
+var overlay = new ol.Overlay({
+    element:container,
+    autoPan:true,
+    autoPanAnimation: {
+      duration: 250
+    }
+});
+map.addOverlay(overlay);
+
+closer.onclick = function(){
+  overlay.setPosition(undefined);
+  closer.blur();
+  return false;
+};
+
+map.on('singleclick', function(event){
+  if (map.hasFeatureAtPixel(event.pixel)===true){
+    var coordinate = event.coordinate;
+
+    content.innerHTML = '<b>Hello world!></b><br />I am UNL City Campus.';
+    overlay.setPosition(coordinate);
+  } else {
+    overlay.setPosition(undefined);
+    closer.blur();
+  }
+});
+</script>
+</body>
+</html>
