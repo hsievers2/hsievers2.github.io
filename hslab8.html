@@ -1,0 +1,163 @@
+<!DOCTYPEhtml>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>VisualizefeatureswithrealisticWebStyleSymbols-4.14</title>
+    <link rel="stylesheet"
+  href="https://js.arcgis.com/4.14/esri/themes/light/main.css"/>
+        <script src="https://js.arcgis.com/4.14/"></script>
+
+        <style>
+        html,
+        body,
+        #viewDiv {padding: 0; margin: 0; height: 100%; width:1 00%;}
+        </style>
+
+        <script>
+        require(["esri/WebScene","esri/views/SceneView","esri/layers/FeatureLayer",
+        "esri/layers/SceneLayer","esri/tasks/support/Query"],
+        function(WebScene,SceneView,FeatureLayer,SceneLayer,Query){
+          //Create the web scene
+          var map=new WebScene({
+            basemap:"satellite",
+            ground:"world-elevation"
+          });
+          //Create the view
+          var view = new SceneView({
+            container:"viewDiv",
+            map:map,
+            camera:{
+              position:{
+                latitude:41.6608232,
+                longitude:-91.537668,
+                z:1800
+              },
+              tilt:62,
+              heading:325
+            },
+            environment:{
+              lighting:{
+                date:new Date("March28,202012:00:00EDT"),
+                directShadowsEnabled:true,
+                ambientOcclusionEnabled:true
+              }
+            }});
+var uniqueValueInfos = [
+  {
+    value: "Cocos",
+    symbol: {
+      type: "web-style",
+      name: "Cocos",
+      styleName: "EsriRealisticTreesStyle"
+    }
+  },
+  {
+    value: "Fremontodendron",
+    symbol:{
+      type: "web-style",
+      name: "Fremontodendron",
+      styleName: "EsriRealisticTreesStyle"
+    }
+  },
+  {
+    value: "Citrus",
+    symbol: {
+      type: "web-style",
+      name: "Citrus",
+      styleName: "EsriRealisticTreesStyle"
+    }
+  },
+      {
+        value: "Bulbophyllum",
+        symbol: {
+          type: "web-style",
+          name: "Bulbophyllum",
+          styleName: "EsriRealisticTreesStyle"
+        }
+      },
+            {
+        value: "Chamaedorea",
+        symbol: {
+          type: "web-style",
+          name: "Chamaedorea",
+          styleName: "EsriRealisticTreesStyle"
+        }
+      },
+          {
+            value: "Carnegiea",
+            symbol: {
+              type: "web-style",
+              name: "Carnegiea",
+              styleName: "EsriRealisticTreesStyle"
+            }
+          },
+          {
+            value: "Yucca",
+            symbol: {
+              type: "web-style",
+              name: "Yucca",
+              styleName: "EsriRealisticTreesStyle"
+            }
+          },
+          {
+            value: "Helianthus annuus",
+            symbol: {
+              type: "web-style",
+              name: "Helianthus",
+              styleName: "EsriRealisticTreesStyle"
+            }
+          }
+];
+
+          var vegetationLayer = new FeatureLayer({
+            url:
+            "https://maps.facilities.uiowa.edu/arcgis/rest/services/Features/Trees/MapServer/1",
+
+              elevationInfo: {
+                mode: "on-the-ground"
+              },
+              renderer: {
+                type: "unique-value",
+                field: "Scientific",
+                defaultSymbol: {
+                  type: "web-style",
+                  name: "Unknown",
+                  styleName:"EsriRealisticTreesStyle"
+                },
+                uniqueValueInfos: uniqueValueInfos,
+                visualVariables: [
+                  {
+                    type: "size",
+                    field: "Height",
+                    axis: "height"
+                  },
+                  {
+                    type: "rotation",
+                    valueExpression: "random() * 360"
+                  }
+                ]
+              }
+          });
+
+          var bikeLayer = new FeatureLayer({
+            url:
+            "https://maps.facilities.uiowa.edu/arcgis/rest/services/Features/Bikes/MapServer"
+          });
+
+
+          map.add(
+            vegetationLayer
+          );
+          map.add(
+            bikeLayer
+          );
+          });
+
+          </script>
+          </head>
+
+          <body>
+          <div id="viewDiv"></div>
+          </body>
+          </html>
