@@ -1,0 +1,165 @@
+<!DOCTYPE html><html>
+<head>
+   <meta charset="utf-8" />
+      <meta name="viewport"
+          content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+
+      <title>Final Project</title>
+      <link rel="stylesheet"href="https://js.arcgis.com/4.18/esri/themes/light/main.css" />
+      <script src="https://js.arcgis.com/4.18/"></script>
+
+         <style>
+             html,
+             body,
+            #viewDiv {
+                padding: 0;
+                margin: 0;
+                height: 100%;
+                width: 100%;
+              }
+
+          </style>
+          <script>
+
+            require([
+              "esri/Map",
+              "esri/views/MapView",
+              "esri/layers/FeatureLayer",
+              "esri/layers/GeoJSONLayer",
+              "esri/widgets/Legend"
+          ],
+          function (Map, MapView, FeatureLayer, GeoJSONLayer, Legend) {
+
+
+const popupTemplate = {
+  title: "This Culture Bound Syndrom is called {disease} and is found in {country}",
+  content: [
+    {
+    type: "fields",
+    fieldInfos: [
+      {
+        fieldName: "Disease Description",
+        label: "Description",
+        format: {
+          places: 0,
+          digitSeparator: true
+        }
+      }]}]};
+     const pointRenderer = {
+       "type": "unique-value",
+       legendOptions: {
+         title: "Areas of Origin"
+       },
+       field: "Disease",
+       uniqueValueInfos:[{
+         value: "Amok",
+         label: "Amok",
+         symbol: {
+           type: "simple-marker",
+           color: "#66c2a5",
+           style: "solid"
+         }
+       }, {
+         value: "Dhat",
+         label: "Dhat",
+         symbol: {
+           type: "simple-marker",
+           color: "#fc8d62",
+           style: "solid"
+         }
+       },{
+       value: "Koro",
+       label: "Koro",
+       symbol: {
+         type: "simple-marker",
+         color: "#8da0cb",
+         style: "solid"
+       }
+     }, {
+       value: "Latah",
+       label: "Latah",
+       symbol: {
+         type: "simple-marker",
+         color: "#e78ac3",
+         style: "solid"
+       }
+     }, {
+     value: "Nervios",
+     label: "Nervios",
+     symbol: {
+       type: "simple-marker",
+       color: "#1b9e77",
+       style: "solid"
+     }
+   }, {
+     value: "Pibloktoq (Arctic Hysteria)",
+     label: "Pibloktoq (Arctic Histeria)",
+     symbol: {
+       type: "simple-marker",
+       color: "#ffd92f",
+       style: "solid"
+     }
+   }, {
+     value: "Ufufuyane",
+     label: "Ufufuyane",
+     symbol: {
+       type: "simple-marker",
+       color: "#e5c494",
+       style: "solid"
+     }
+   }, {
+     value: "Windigo",
+     label: "Windigo",
+     symbol: {
+       type: "simple-marker",
+       color: "#b3b3b3",
+       style: "solid"
+     }
+     },
+       ]
+};
+
+const layer = new GeoJSONLayer({
+url:
+  "https://hsievers2.github.io/hsdata.geojson",
+            outFields: ["disease", "disease description", "latitude", "longitude"], //used to specify what attribute fields to query
+            popupTemplate: popupTemplate,
+            renderer: pointRenderer
+   });
+
+   const map = new Map({
+            basemap: "streets",
+            layers: [layer]
+              });
+
+const view = new MapView({
+          map: map,
+          container: "viewDiv",
+          zoom: 2,
+          center: [0, 0]
+     });
+
+
+      const legend = new Legend({
+              view: view,
+              layerInfos:[{
+                  layer: layer,
+                  title: "Culture Bound Syndrom Location"
+
+              }]
+
+   });
+                view.ui.add(legend, "bottom-left");
+                            });
+   </script>
+   </head>
+
+ <body>
+     <div id="viewDiv"></div>
+
+
+ </body>
+ <h1>Culture Bound Syndrom Map</h1>
+   <h2></h2>
+ </html>
